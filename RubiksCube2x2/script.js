@@ -1,26 +1,40 @@
+import RubiksCube from './js/RubiksCube.js';
+
+// Initialisation de l'application
 document.addEventListener('DOMContentLoaded', () => {
     const scrambleBtn = document.getElementById('scramble-btn');
     const solveBtn = document.getElementById('solve-btn');
-    const cubePlaceholder = document.querySelector('.cube-placeholder');
+    const resetBtn = document.getElementById('reset-btn');
+    const cubeContainer = document.querySelector('.cube-area');
+
+    // Créer une instance du Rubik's Cube
+    const rubiksCube = new RubiksCube();
+    rubiksCube.render(cubeContainer);
 
     if (scrambleBtn) {
         scrambleBtn.addEventListener('click', () => {
             console.log('Bouton "Mélanger" cliqué.');
-            cubePlaceholder.style.transition = 'transform 0.5s ease';
-            cubePlaceholder.style.transform = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg)`;
-            // Ici, logique de mélange du cube.
+            rubiksCube.scramble(20);
+            console.log('État du cube:', rubiksCube.getState());
         });
     }
 
     if (solveBtn) {
         solveBtn.addEventListener('click', () => {
             console.log('Bouton "Résoudre" cliqué.');
-            cubePlaceholder.style.transition = 'transform 0.5s ease';
-            cubePlaceholder.style.transform = 'rotateX(0deg) rotateY(0deg)';
-            // Ici, logique de résolution.
+            rubiksCube.solve();
+            console.log('Résolution du cube avec algorithme.');
+        });
+    }
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            console.log('Bouton "Réinitialiser" cliqué.');
+            rubiksCube.reset();
+            console.log('Cube réinitialisé à l\'état résolu!');
         });
     }
 
     console.log('Interface du solveur de Rubik\'s Cube initialisée.');
-    console.log('En attente de l\'implémentation de la logique du cube 2x2.');
+    console.log('Cube 2x2 créé avec architecture orientée objet.');
 });
